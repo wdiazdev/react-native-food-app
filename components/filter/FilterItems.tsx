@@ -6,54 +6,38 @@ import Colors from '@/constants/Colors'
 const FilterItems = () => {
   const { filterItemWrapper, itemContainer, textContainer, header } = styles
   return (
-    <>
-      <View style={filterItemWrapper}>
-        <TouchableOpacity style={itemContainer}>
-          <Ionicons
-            name={'arrow-down-outline'}
-            size={20}
-            color={Colors.medium}
-          />
-          <View style={textContainer}>
-            <Text>Sort</Text>
+    <React.Fragment>
+      {['Sort', 'Higiene rating', 'Offers', 'Dietary'].map((item, index) => (
+        <React.Fragment key={index}>
+          <View style={filterItemWrapper}>
+            <TouchableOpacity style={itemContainer}>
+              <Ionicons
+                name={
+                  item === 'Sort'
+                    ? 'arrow-down-outline'
+                    : item === 'Higiene rating'
+                    ? 'fast-food-outline'
+                    : item === 'Offers'
+                    ? 'pricetag-outline'
+                    : 'nutrition-outline'
+                }
+                size={20}
+                color={Colors.medium}
+              />
+              <View style={textContainer}>
+                <Text>{item}</Text>
+              </View>
+              <Ionicons
+                name={'chevron-forward'}
+                size={20}
+                color={Colors.primary}
+              />
+            </TouchableOpacity>
           </View>
-          <Ionicons name={'chevron-forward'} size={20} color={Colors.primary} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={itemContainer}>
-          <Ionicons
-            name={'fast-food-outline'}
-            size={20}
-            color={Colors.medium}
-          />
-          <View style={textContainer}>
-            <Text>Higiene rating</Text>
-          </View>
-          <Ionicons name={'chevron-forward'} size={20} color={Colors.primary} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={itemContainer}>
-          <Ionicons name={'pricetag-outline'} size={20} color={Colors.medium} />
-          <View style={textContainer}>
-            <Text>Offers</Text>
-          </View>
-          <Ionicons name={'chevron-forward'} size={20} color={Colors.primary} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={itemContainer}>
-          <Ionicons
-            name={'nutrition-outline'}
-            size={20}
-            color={Colors.medium}
-          />
-          <View style={textContainer}>
-            <Text>Dietary</Text>
-          </View>
-          <Ionicons name={'chevron-forward'} size={20} color={Colors.primary} />
-        </TouchableOpacity>
-      </View>
+        </React.Fragment>
+      ))}
       <Text style={header}>Categories</Text>
-    </>
+    </React.Fragment>
   )
 }
 

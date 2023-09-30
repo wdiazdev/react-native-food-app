@@ -20,7 +20,7 @@ const BottomSheet = forwardRef<Ref>((props, ref) => {
     setSelectedOption(option)
   }
 
-  const snapPoints = useMemo(() => ['50%'], [])
+  const snapPoints = useMemo(() => ['51%'], [])
 
   const renderBackdrop = useCallback(
     (props: any) => (
@@ -60,6 +60,7 @@ const BottomSheet = forwardRef<Ref>((props, ref) => {
         <BottomSheetLocationItem
           subheaderText={'Your Location'}
           btnText={'Current Location'}
+          handlePress={() => dismiss()}
         />
         <BottomSheetLocationItem
           subheaderText={'Arrival Time'}

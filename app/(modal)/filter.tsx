@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, FlatList, ListRenderItem } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Colors from '@/constants/Colors'
 import FullButton from '@/components/FullButton'
 import { useNavigation } from 'expo-router'
 import { categories } from '../../assets/data/categories'
 import FilterItems from '@/components/filter/FilterItems'
+import BouncyCheckbox from 'react-native-bouncy-checkbox'
 
 type Category = {
   name: string
@@ -13,13 +14,57 @@ type Category = {
 }
 
 const Filter = () => {
+  const [checkboxState, setCheckboxState] = useState<Category[]>(categories)
+  const [selectedCategory, setSelectedCategory] = useState<boolean>()
+
+  useEffect(() => {
+    const selected = checkboxState.filter((item) => item.checked).length > 0
+    setSelectedCategory(selected)
+  }, [checkboxState])
+
   const navigation = useNavigation()
 
-  const { container, footer, row } = styles
+  const handleClear = () => {
+    const clearItem = checkboxState.map((item) => {
+      item.checked = false
+      return item
+    })
+    setCheckboxState(clearItem)
+  }
 
-  const categoryItem: ListRenderItem<Category> = ({ item }) => (
+  const {
+    container,
+    footer,
+    row,
+    itemText,
+    buttonContainer,
+    outlineButton,
+    outlineButtonText
+  } = styles
+
+  const categoryItem: ListRenderItem<Category> = ({ item, index }) => (
     <View style={row}>
-      <Text>{item.name}</Text>
+      <Text style={itemText}>
+        {item.name} ({item.count})
+      </Text>
+      <BouncyCheckbox
+        fillColor={Colors.primary}
+        unfillColor="#fff"
+        innerIconStyle={{ borderWidth: 2 }}
+        disableBuiltInState
+        isChecked={checkboxState[index].checked}
+        onPress={() => {
+          const isChecked = checkboxState[index].checked
+
+          const checkedItem = checkboxState?.map((item) => {
+            if (item.name === checkboxState[index].name) {
+              item.checked = !isChecked
+            }
+            return item
+          })
+          setCheckboxState(checkedItem)
+        }}
+      />
     </View>
   )
   return (
@@ -28,10 +73,22 @@ const Filter = () => {
         data={categories}
         renderItem={categoryItem}
         ListHeaderComponent={<FilterItems />}
+        keyExtractor={(item) => item.name}
       />
       <View style={{ height: 80 }} />
       <View style={footer}>
-        <FullButton handlePress={() => navigation.goBack()} text={'Done'} />
+        <View style={buttonContainer}>
+          <FullButton handlePress={() => navigation.goBack()} text={'Done'} />
+
+          {selectedCategory && (
+            <FullButton
+              handlePress={handleClear}
+              text={'Clear'}
+              btnStyles={outlineButton}
+              btnText={outlineButtonText}
+            />
+          )}
+        </View>
       </View>
     </View>
   )
@@ -66,6 +123,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     backgroundColor: '#fff'
+  },
+  itemText: {
+    flex: 1
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  outlineButton: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: '#fff',
+    borderColor: Colors.primary,
+    borderWidth: 0.5
+  },
+  outlineButtonText: {
+    color: Colors.primary,
+    fontWeight: 'bold'
   }
 })
 

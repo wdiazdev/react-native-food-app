@@ -7,14 +7,23 @@ import Colors from '@/constants/Colors'
 type Props = {
   subheaderText: string
   btnText: string
+  handlePress?: () => void
 }
 
-const BottomSheetLocationItem = ({ subheaderText, btnText }: Props) => {
+const BottomSheetLocationItem = ({
+  subheaderText,
+  btnText,
+  handlePress
+}: Props) => {
   const { subheader, subheaderItem, subheaderItemText } = styles
   return (
     <View>
       <Text style={subheader}>{subheaderText}</Text>
-      <Link href={'/'} asChild>
+      <Link
+        href={btnText === 'Current Location' ? '/(modal)/locationSearch' : '/'}
+        asChild
+        onPress={handlePress ? handlePress : undefined}
+      >
         <TouchableOpacity>
           <View style={subheaderItem}>
             <Ionicons

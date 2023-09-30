@@ -1,30 +1,56 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  useWindowDimensions,
+  View
+} from 'react-native'
 import React from 'react'
-import { NativeScreen } from 'react-native-screens'
 import Colors from '@/constants/Colors'
 
 type Props = {
   handlePress?: () => void
   text?: string
+  btnStyles?: any
+  btnText?: any
+  btnContainer?: any
 }
 
-const FullButton = ({ handlePress, text }: Props) => {
-  const { btn, buttonText } = styles
+const FullButton = ({
+  handlePress,
+  text,
+  btnContainer,
+  btnStyles,
+  btnText
+}: Props) => {
+  const { container, btn, buttonText } = styles
   return (
-    <TouchableOpacity onPress={handlePress} style={btn}>
-      <Text style={buttonText}>{text}</Text>
-    </TouchableOpacity>
+    <View style={btnContainer ? [container, { ...btnContainer }] : container}>
+      <TouchableOpacity
+        onPress={handlePress}
+        style={btnStyles ? [btn, { ...btnStyles }] : btn}
+      >
+        <Text style={btnText ? [buttonText, { ...btnText }] : buttonText}>
+          {text}
+        </Text>
+      </TouchableOpacity>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   btn: {
+    height: 56,
     backgroundColor: Colors.primary,
     padding: 16,
     margin: 16,
     alignItems: 'center',
-    borderRadius: 4
+    borderRadius: 8
   },
-  buttonText: { color: 'white', fontWeight: 'bold' }
+  buttonText: { color: 'white', fontWeight: 'bold', fontSize: 16 }
 })
 export default FullButton

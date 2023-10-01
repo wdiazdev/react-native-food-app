@@ -1,4 +1,4 @@
-export const categories = [
+export const filterCategories = [
   {
     name: 'Italian',
     count: 143

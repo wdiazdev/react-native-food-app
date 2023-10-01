@@ -47,20 +47,20 @@ const HeaderSearchBar = ({ placeholder, link }: Props) => {
 const styles = StyleSheet.create({
   searchContainer: {
     height: 60,
-    backgroundColor: 'white'
+    backgroundColor: '#fff'
   },
   searchWrapper: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     gap: 10
   },
   searchField: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.lightGrey,
+    backgroundColor: Colors.grey,
     borderRadius: 8
   },
   searchIcon: {

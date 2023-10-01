@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Colors from '@/constants/Colors'
 import FullButton from '@/components/FullButton'
 import { useNavigation } from 'expo-router'
-import { categories } from '../../assets/data/categories'
+import { filterCategories } from '../../assets/data/filterCategories'
 import FilterItems from '@/components/filter/FilterItems'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 
@@ -14,7 +14,8 @@ type Category = {
 }
 
 const Filter = () => {
-  const [checkboxState, setCheckboxState] = useState<Category[]>(categories)
+  const [checkboxState, setCheckboxState] =
+    useState<Category[]>(filterCategories)
   const [selectedCategory, setSelectedCategory] = useState<boolean>()
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const Filter = () => {
   return (
     <View style={container}>
       <FlatList
-        data={categories}
+        data={filterCategories}
         renderItem={categoryItem}
         ListHeaderComponent={<FilterItems />}
         keyExtractor={(item) => item.name}

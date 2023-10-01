@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import MapView from 'react-native-maps'
 import FullButton from '@/components/FullButton'
 import { useNavigation } from 'expo-router'
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import Colors from '@/constants/Colors'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import { Ionicons } from '@expo/vector-icons'
 
 type Coords = {
@@ -18,10 +18,9 @@ const locationSearch = () => {
   const [location, setLocation] = useState<Coords>({
     latitude: 51.5078788,
     longitude: -0.0877321,
-    latitudeDelta: 0.02,
-    longitudeDelta: 0.02
+    latitudeDelta: 0.08,
+    longitudeDelta: 0.05
   })
-  console.log('location:', location)
 
   const navigation = useNavigation()
 
@@ -32,8 +31,6 @@ const locationSearch = () => {
         placeholder="Search"
         fetchDetails={true}
         onPress={(data, details = null) => {
-          console.log('details:', details)
-          console.log('data:', data)
           // 'details' is provided when fetchDetails = true
           const coordsDetails = details?.geometry?.location
           if (!coordsDetails) return
@@ -47,7 +44,6 @@ const locationSearch = () => {
           key: process.env.EXPO_PUBLIC_GOOGLE_API_KEY,
           language: 'en'
         }}
-        // nearbyPlacesAPI="GooglePlacesSearch"
         renderLeftButton={() => (
           <View style={searchIcon}>
             <Ionicons name="search-outline" size={24} color={Colors.medium} />

@@ -14,7 +14,7 @@ type Coords = {
   longitudeDelta: number
 }
 
-const locationSearch = () => {
+const LocationSearch = () => {
   const [location, setLocation] = useState<Coords>({
     latitude: 51.5078788,
     longitude: -0.0877321,
@@ -53,7 +53,8 @@ const locationSearch = () => {
         styles={{
           container: {
             flex: 0,
-            zIndex: 100
+            zIndex: 100,
+            marginTop: 4
           },
           textInput: {
             backgroundColor: Colors.grey,
@@ -78,7 +79,7 @@ const locationSearch = () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: '#fff' },
   map: {
     flex: 1,
     zIndex: 0
@@ -90,4 +91,4 @@ const styles = StyleSheet.create({
   },
   searchIcon: { position: 'absolute', zIndex: 100, top: 17, left: 15 }
 })
-export default locationSearch
+export default LocationSearch

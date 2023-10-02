@@ -3,47 +3,59 @@ import {
   Text,
   Animated,
   StyleSheet,
-  TouchableOpacity
+  SectionList,
+  ListRenderItem,
+  TouchableOpacity,
+  Image
 } from 'react-native'
-import React, { useLayoutEffect, useRef } from 'react'
-import { useNavigation } from 'expo-router'
-import Colors from '@/constants/Colors'
-import { Ionicons } from '@expo/vector-icons'
+import React, { useRef } from 'react'
 import TopHeader from '@/components/detailsPage/TopHeader'
+import { restaurant } from '@/assets/data/restaurant'
+import Colors from '@/constants/Colors'
+import { Link } from 'expo-router'
 
+type Meal = {
+  id: number
+  name: string
+  price: number
+  info: string
+  img: any
+}
 const details = () => {
   const scrollA = useRef(new Animated.Value(0)).current
 
-  const navigation = useNavigation()
+  const DATA = restaurant.food.map((item, index) => ({
+    title: item.category,
+    data: item.meals,
+    index
+  }))
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTransparent: true,
-      headerTitle: '',
-      headerTintColor: Colors.primary,
-      headerBackVisible: false,
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={detailsBtn}
-        >
-          <Ionicons name={'arrow-back'} size={22} color={Colors.primary} />
-        </TouchableOpacity>
-      ),
-      headerRight: () => (
-        <View style={iconsRightContainer}>
-          <TouchableOpacity style={detailsBtn}>
-            <Ionicons name={'share-outline'} size={22} color={Colors.primary} />
-          </TouchableOpacity>
-          <TouchableOpacity style={detailsBtn}>
-            <Ionicons name={'ios-search'} size={22} color={Colors.primary} />
-          </TouchableOpacity>
+  const renderItem: ListRenderItem<Meal> = ({ item }) => (
+    <Link href={{ pathname: '/(modal)/dish', params: { id: item.id } }} asChild>
+      <TouchableOpacity style={sectionItemContainer}>
+        <View style={itemDetails}>
+          <Text style={itemName}>{item.name}</Text>
+          <Text style={itemPrice}>{item.info}</Text>
+          <Text style={itemPrice}>${item.price}</Text>
         </View>
-      )
-    })
-  })
+        <Image source={item.img} style={dishImg} />
+      </TouchableOpacity>
+    </Link>
+  )
 
-  const { detailsBtn, iconsRightContainer, bannerContainer, banner } = styles
+  const {
+    bannerContainer,
+    banner,
+    detailsContainer,
+    restaurantName,
+    restaurantDescription,
+    sectionHeader,
+    sectionItemContainer,
+    itemDetails,
+    itemName,
+    itemPrice,
+    dishImg
+  } = styles
 
   return (
     <View>
@@ -80,76 +92,41 @@ const details = () => {
           />
         </View>
 
-        <Text style={styles.text}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur
-          nulla dolores delectus! Numquam, excepturi! Maiores, asperiores quod
-          nesciunt rem possimus similique, nostrum saepe officiis vitae magnam
-          laborum in! Hic, explicabo! Impedit omnis aspernatur a consectetur
-          maxime, tenetur est voluptatem ex iure ab sequi repudiandae facere at.
-          Quo dolores nesciunt deleniti dolorem optio architecto veritatis magni
-          officia ipsam corporis, adipisci delectus! Aperiam facilis rerum
-          exercitationem fuga minima molestiae repudiandae eos ipsum suscipit
-          optio, voluptate, asperiores tempora eaque tempore! Saepe omnis
-          aliquid consectetur, ipsum dolorem, voluptates laboriosam ratione
-          laborum, nesciunt voluptatibus qui. Quia totam ullam ratione, omnis,
-          nulla est ipsa iste molestiae distinctio sed amet. Est nemo id eos
-          sapiente reiciendis, quidem laboriosam temporibus! Alias voluptate
-          odio saepe quasi placeat vero distinctio! Maiores cum corporis debitis
-          perspiciatis placeat reprehenderit delectus aliquam quisquam sapiente
-          labore, accusamus voluptate nostrum corrupti officia minus, ipsa harum
-          qui animi commodi explicabo optio quaerat, quia odit? Id, fuga. Earum
-          amet fugit deserunt magnam accusantium dolorem libero exercitationem
-          expedita obcaecati accusamus delectus nulla, quia dolor ad corporis
-          quas ipsa! Illo neque beatae explicabo iusto dicta vel quibusdam
-          reiciendis soluta! Dolor, voluptatem molestias harum dolorem nemo
-          inventore nobis et sequi beatae nesciunt excepturi magni a blanditiis
-          quia facilis iste quod, natus libero! Dolorum, commodi non? Facere,
-          eveniet repudiandae. Eaque, velit! Saepe dignissimos, maiores quas
-          accusamus obcaecati ut. Nam eos repudiandae fuga expedita doloribus in
-          incidunt odio molestiae neque pariatur, rem ipsam facere veniam et
-          cupiditate dicta necessitatibus ea minus soluta? Quos, laudantium. Quo
-          cupiditate consequuntur atque labore amet repellat delectus sit nihil
-          impedit laborum harum fugiat, sed cum animi hic. Nam autem sapiente
-          error officia necessitatibus! Praesentium suscipit perferendis cumque?
-          Ratione assumenda fugiat in illum dignissimos soluta laboriosam
-          suscipit id sint? Molestias delectus quae inventore quas, itaque
-          doloribus dolorum eligendi neque voluptates natus quam id repellendus
-          fugit assumenda ratione? Aspernatur. Magni iusto aspernatur deserunt
-          consequuntur illum quia tenetur ab commodi, suscipit hic tempore
-          labore optio culpa. Quae eveniet repellat porro, optio, repudiandae
-          reprehenderit pariatur sunt, commodi atque quasi quisquam fugiat!
-          Beatae harum voluptate minus tempora quam consectetur, veniam sapiente
-          quis itaque quos! Reiciendis, aspernatur sint consequuntur voluptas
-          minus minima blanditiis praesentium nesciunt nemo aliquid deleniti
-          maxime labore veniam voluptates eligendi. Ducimus ipsa minus harum
-          perferendis sit eius ullam dolore tempore unde explicabo. Ab quos
-          cumque labore ad quia neque, deleniti minus omnis numquam totam,
-          dolorem enim sunt quae distinctio delectus. Error praesentium
-          molestias quasi voluptate et? Magni perspiciatis asperiores similique,
-          illum voluptas esse officia obcaecati quod quidem modi ipsam sint
-          fugiat vel aut. Velit perspiciatis molestiae quibusdam voluptatem rem
-          ipsum. Velit nam quas, quae molestias magnam maiores soluta dolores
-          saepe recusandae veritatis aut? Nobis pariatur voluptas sequi repellat
-          ea assumenda? Dolores velit quia et enim qui a incidunt est quibusdam?
-          Odio, excepturi necessitatibus repellat architecto nobis modi, natus
-          similique nulla, laudantium odit qui dolor neque sed quasi aliquam
-          pariatur? Perspiciatis praesentium quaerat natus porro deserunt,
-          tempora dignissimos minima debitis repudiandae. Facilis atque voluptas
-          dolores pariatur provident aperiam vitae possimus iure ipsum
-          voluptatum nam labore dolore explicabo, doloremque nulla praesentium a
-          fugit expedita minima quibusdam nesciunt, ducimus sunt veritatis
-          laboriosam. Earum. Ullam consectetur sequi nostrum! Et, ipsa mollitia
-          iusto, quis, provident inventore numquam distinctio voluptas ducimus
-          dicta veniam doloremque. Odit ducimus consequatur officia eveniet
-          sapiente eius nesciunt mollitia aliquam natus? Ab. Deserunt,
-          voluptatibus alias odit mollitia totam eaque tempora officiis
-          reiciendis veniam natus quas ea voluptas cupiditate quam quod officia
-          magni quos autem modi numquam quo corporis earum, odio at.
-          Consequuntur? Odit modi magni recusandae ex corporis blanditiis
-          consequatur, impedit itaque ea ullam ad accusantium nostrum molestias
-          quia quasi eos explicabo in consequuntur, sapiente nisi voluptatum
-          quos iste animi expedita! Optio.
-        </Text>
+        <View style={detailsContainer}>
+          <Text style={restaurantName}>{restaurant.name}</Text>
+          <Text style={restaurantDescription}>
+            {restaurant.delivery} ·
+            {restaurant.tags.map(
+              (tag, index) =>
+                `${tag} ${index < restaurant.tags.length - 1 ? '·' : ''}`
+            )}
+          </Text>
+          <Text style={restaurantDescription}>{restaurant.about}</Text>
+          <SectionList
+            sections={DATA}
+            //scrollEnabled = false because the Animated.ScrollView
+            scrollEnabled={false}
+            keyExtractor={(item, index) => `${item.id + index}`}
+            renderSectionHeader={({ section: { title } }) => (
+              <Text style={sectionHeader}>{title}</Text>
+            )}
+            renderItem={renderItem}
+            ItemSeparatorComponent={() => (
+              <View
+                style={{
+                  height: 1,
+                  backgroundColor: Colors.lightGrey,
+                  marginBottom: 5,
+                  marginTop: 5
+                }}
+              />
+            )}
+            SectionSeparatorComponent={() => (
+              <View style={{ height: 2, backgroundColor: Colors.lightGrey }} />
+            )}
+            contentContainerStyle={{ paddingBottom: 20 }}
+          />
+        </View>
       </Animated.ScrollView>
     </View>
   )
@@ -166,17 +143,37 @@ const styles = StyleSheet.create({
     height: 350,
     width: '200%'
   },
-  detailsBtn: {
-    backgroundColor: Colors.grey,
-    padding: 6,
-    borderRadius: 50
+  detailsContainer: { padding: 16, gap: 10, backgroundColor: '#fff' },
+  restaurantName: { fontSize: 30, fontWeight: 'bold' },
+  restaurantDescription: {
+    fontSize: 16,
+    lineHeight: 22,
+    color: Colors.mediumDark
   },
-  iconsRightContainer: {
+  sectionHeader: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginTop: 20
+  },
+  sectionItemContainer: {
     flexDirection: 'row',
-    gap: 10
+    justifyContent: 'space-between',
+    gap: 10,
+    paddingVertical: 8
   },
-
-  text: { margin: 24, fontSize: 16 }
+  itemDetails: { flex: 1, gap: 4 },
+  itemName: { fontSize: 16, fontWeight: 'bold' },
+  itemPrice: { fontSize: 12, color: Colors.mediumDark },
+  dishImg: {
+    width: 80,
+    height: 80,
+    borderRadius: 4,
+    elevation: 2,
+    shadowColor: Colors.mediumDark,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 10,
+    shadowOpacity: 0.3
+  }
 })
 
 export default details

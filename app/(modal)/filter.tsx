@@ -6,6 +6,7 @@ import { useNavigation } from 'expo-router'
 import { filterCategories } from '../../assets/data/filterCategories'
 import FilterItems from '@/components/filter/FilterItems'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
+import Animated, { FadeIn, FadeInRight } from 'react-native-reanimated'
 
 type Category = {
   name: string
@@ -82,12 +83,17 @@ const Filter = () => {
           <FullButton handlePress={() => navigation.goBack()} text={'Done'} />
 
           {selectedCategory && (
-            <FullButton
-              handlePress={handleClear}
-              text={'Clear'}
-              btnStyles={outlineButton}
-              btnText={outlineButtonText}
-            />
+            <Animated.View
+              style={{ flex: 1 }}
+              entering={FadeInRight.duration(300).delay(100)}
+            >
+              <FullButton
+                handlePress={handleClear}
+                text={'Clear'}
+                btnStyles={outlineButton}
+                btnText={outlineButtonText}
+              />
+            </Animated.View>
           )}
         </View>
       </View>

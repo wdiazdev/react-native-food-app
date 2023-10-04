@@ -1,11 +1,10 @@
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import React, { forwardRef, useCallback, useMemo, useState } from 'react'
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
   useBottomSheetModal
 } from '@gorhom/bottom-sheet'
-
 import Colors from '@/constants/Colors'
 import BottonSheetBtn from './BottonSheetBtn'
 import BottomSheetLocationItem from './BottomSheetLocationItem'

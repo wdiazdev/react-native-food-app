@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     backgroundColor: '#fff',
     borderColor: Colors.primary,
-    borderWidth: 0.5
+    borderWidth: 1
   },
   outlineButtonText: {
     color: Colors.primary,

@@ -97,6 +97,27 @@ export default function RootLayoutNav() {
             )
           }}
         />
+        <Stack.Screen
+          name="basket"
+          options={{
+            headerTitle: 'Basket',
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack()
+                }}
+                style={{
+                  backgroundColor: '#fff',
+                  padding: 6,
+                  borderRadius: 50
+                }}
+              >
+                <Ionicons name="arrow-back" size={22} color={Colors.primary} />
+              </TouchableOpacity>
+            )
+          }}
+        />
       </Stack>
     </BottomSheetModalProvider>
   )

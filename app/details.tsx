@@ -67,7 +67,7 @@ const details = () => {
 
   return (
     <View>
-      <TopHeader header="Details" scrollA={scrollA} />
+      <TopHeader header={restaurant.name} scrollA={scrollA} />
       <Animated.ScrollView
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollA } } }],
@@ -123,16 +123,16 @@ const details = () => {
               <View
                 style={{
                   height: 1,
-                  backgroundColor: Colors.lightGrey,
+                  backgroundColor: Colors.grey,
                   marginBottom: 5,
                   marginTop: 5
                 }}
               />
             )}
             SectionSeparatorComponent={() => (
-              <View style={{ height: 2, backgroundColor: Colors.lightGrey }} />
+              <View style={{ height: 1, backgroundColor: Colors.grey }} />
             )}
-            contentContainerStyle={{ paddingBottom: 20 }}
+            contentContainerStyle={{ paddingBottom: items ? 100 : 0 }}
           />
         </View>
       </Animated.ScrollView>
@@ -141,16 +141,17 @@ const details = () => {
           <SafeAreaView edges={['bottom']}>
             <Link href={'/basket'} asChild>
               <TouchableOpacity style={footerContainerWrapper}>
-                <Text style={basketTotal}>{items}</Text>
-                <Text style={footerBasket}>View Basket</Text>
-                <Text
-                  style={[
-                    basketTotal,
-                    { ...basketTotal, backgroundColor: 'none' }
-                  ]}
+                <View
+                  style={{ backgroundColor: Colors.lightGrey, borderRadius: 4 }}
                 >
-                  ${Math.ceil(total)}
-                </Text>
+                  <Text style={basketTotal}>{items}</Text>
+                </View>
+                <Text style={footerBasket}>View Basket</Text>
+                <View
+                  style={{ backgroundColor: Colors.lightGrey, borderRadius: 4 }}
+                >
+                  <Text style={basketTotal}>${total.toFixed(2)}</Text>
+                </View>
               </TouchableOpacity>
             </Link>
           </SafeAreaView>
@@ -195,12 +196,7 @@ const styles = StyleSheet.create({
   dishImg: {
     width: 80,
     height: 80,
-    borderRadius: 4,
-    elevation: 2,
-    shadowColor: Colors.mediumDark,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 10,
-    shadowOpacity: 0.3
+    borderRadius: 4
   },
   footerContainer: {
     backgroundColor: '#fff',
@@ -208,12 +204,17 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
-    elevation: 2,
-    shadowColor: Colors.mediumDark,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 10,
-    shadowOpacity: 0.3,
-    paddingTop: 10
+    paddingTop: 10,
+    paddingBottom: 10,
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    ShadowOffset: {
+      width: 0,
+      height: -10
+    }
   },
   footerContainerWrapper: {
     flex: 1,
@@ -230,7 +231,6 @@ const styles = StyleSheet.create({
   basketTotal: {
     color: Colors.mediumDark,
     fontWeight: 'bold',
-    backgroundColor: Colors.grey,
     padding: 5,
     borderRadius: 5
   }

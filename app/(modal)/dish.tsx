@@ -7,6 +7,7 @@ import FullButton from '@/components/FullButton'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Animated, { FadeIn, FadeInLeft } from 'react-native-reanimated'
 import * as Haptics from 'expo-haptics'
+import useBasketStore from '@/store/basketStore'
 
 const Dish = () => {
   const { id } = useLocalSearchParams()
@@ -15,7 +16,12 @@ const Dish = () => {
 
   const navigation = useNavigation()
 
+  const { addProduct } = useBasketStore()
+
   const addToCart = () => {
+    if (item) {
+      addProduct(item)
+    }
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     navigation.goBack()
   }

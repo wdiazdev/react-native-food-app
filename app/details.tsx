@@ -13,6 +13,8 @@ import TopHeader from '@/components/detailsPage/TopHeader'
 import { restaurant } from '@/assets/data/restaurant'
 import Colors from '@/constants/Colors'
 import { Link } from 'expo-router'
+import useBasketStore from '@/store/basketStore'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 type Meal = {
   id: number
@@ -23,6 +25,8 @@ type Meal = {
 }
 const details = () => {
   const scrollA = useRef(new Animated.Value(0)).current
+
+  const { total, items } = useBasketStore()
 
   const DATA = restaurant.food.map((item, index) => ({
     title: item.category,
@@ -54,7 +58,11 @@ const details = () => {
     itemDetails,
     itemName,
     itemPrice,
-    dishImg
+    dishImg,
+    footerContainer,
+    footerBasket,
+    basketTotal,
+    footerContainerWrapper
   } = styles
 
   return (
@@ -128,6 +136,26 @@ const details = () => {
           />
         </View>
       </Animated.ScrollView>
+      {items > 0 && (
+        <View style={footerContainer}>
+          <SafeAreaView edges={['bottom']}>
+            <Link href={'/basket'} asChild>
+              <TouchableOpacity style={footerContainerWrapper}>
+                <Text style={basketTotal}>{items}</Text>
+                <Text style={footerBasket}>View Basket</Text>
+                <Text
+                  style={[
+                    basketTotal,
+                    { ...basketTotal, backgroundColor: 'none' }
+                  ]}
+                >
+                  ${Math.ceil(total)}
+                </Text>
+              </TouchableOpacity>
+            </Link>
+          </SafeAreaView>
+        </View>
+      )}
     </View>
   )
 }
@@ -173,6 +201,38 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 10,
     shadowOpacity: 0.3
+  },
+  footerContainer: {
+    backgroundColor: '#fff',
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    left: 0,
+    elevation: 2,
+    shadowColor: Colors.mediumDark,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 10,
+    shadowOpacity: 0.3,
+    paddingTop: 10
+  },
+  footerContainerWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 56,
+    backgroundColor: Colors.primary,
+    padding: 12,
+    margin: 16,
+    alignItems: 'center',
+    borderRadius: 8
+  },
+  footerBasket: { color: '#fff', fontWeight: 'bold' },
+  basketTotal: {
+    color: Colors.mediumDark,
+    fontWeight: 'bold',
+    backgroundColor: Colors.grey,
+    padding: 5,
+    borderRadius: 5
   }
 })
 

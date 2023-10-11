@@ -1,16 +1,8 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  TextInput
-} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { useRef } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 import Colors from '../constants/Colors'
-import { Link } from 'expo-router'
 import BottomSheet from './bottomSheet/BottomSheet'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import HeaderSearchBar from './HeaderSearchBar'

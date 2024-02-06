@@ -11,7 +11,7 @@ const Page = () => {
     <SafeAreaView style={container}>
       <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
         <Categories />
-        <Text style={header}>Top picks in your neighbourhood</Text>
+        <Text style={header}>Top picks in your neighborhood</Text>
         <Restaurants />
         <Text style={header}>Offers near you</Text>
         <Restaurants />
